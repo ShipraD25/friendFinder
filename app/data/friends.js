@@ -9,7 +9,7 @@ var friends = [{
         scores: [4, 2, 3, 3, 5, 5, 2, 3, 4, 5]
     }, {
         name: "Nicole",
-        photo: "",
+        photo: "https://i.picsum.photos/id/1/5616/3744.jpg",
         scores: [5, 2, 3, 3, 5, 4, 2, 3, 4, 5]
     }, {
         name: "Shadow",
