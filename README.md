@@ -3,7 +3,7 @@ FriendFinder application, this is basically a dating app. This full-stack site w
 
 
 ### App-Demo
-![app-demo](https://media.giphy.com/media/mGUz5tUcwYOiLPVhrn/giphy.gif)
+![app-demo]
 
 ## Getting Started
 #### These instructions will get you a copy of the project up and running on your local machine.
@@ -21,4 +21,7 @@ FriendFinder application, this is basically a dating app. This full-stack site w
 - **path** provides a way of working with directories and file path
   
 # Screenshots
+
+![image](https://user-images.githubusercontent.com/54960706/71803985-13099e80-3017-11ea-8de0-aab3292ef926.png)
+
 
