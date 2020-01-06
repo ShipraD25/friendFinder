@@ -1,19 +1,19 @@
-console.log("API routes")
 var friends = require("../app/data/friends");
-console.log(friends)
+
+//console.log(friends)
 module.exports = function(app) {
     app.get("/api/friends", function(req, res) {
         res.json(friends);
     });
     app.post("/api/friends", function(req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         var newSurvey = req.body;
 
         var BestMatch = {
             name: "",
             photo: "",
             dif: 51
-        }
+        };
 
         for (var i = 0; i < friends.length; i++) {
             var dif = 0;
@@ -26,14 +26,10 @@ module.exports = function(app) {
                 BestMatch.dif = dif;
             }
             console.log(friends[i].name, dif);
-        }
+        };
         friends.push(newSurvey);
         res.json(BestMatch);
         console.log(BestMatch);
 
-
-
-
-
-    })
+    });
 };

@@ -1,5 +1,5 @@
-console.log("HTML ROUTES")
-var path = require("path")
+//console.log("HTML ROUTES")
+var path = require("path");
 
 module.exports = function(app) {
     app.get("/survey", function(req, res) {

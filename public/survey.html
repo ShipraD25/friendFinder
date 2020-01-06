@@ -22,7 +22,7 @@
         <form>
             <div class="form-group">
                 <h5><label for="exampleFormControlInput1">Name (Required)</label></h5>
-                <input type="text" class="form-control" id="name" placeholder="First and last name">
+                <input type="text" class="form-control" id="name" placeholder="First and last name" required>
             </div>
             <h5>Link to Photo Image (Required)</h5>
             <input type="text" id="photo" class="form-control" required>
@@ -193,28 +193,66 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
         $("#submit").on("click", function() {
+
             event.preventDefault();
+
             var userName = $("#name").val();
             var photo = $("#photo").val();
             var scores = [];
             for (var i = 1; i < 11; i++) {
                 scores.push(parseInt($("#question" + i).val()));
             }
-            scores = [5, 5, 5, 5, 5, 4, 4, 4, 5, 5];
+
             var newSurvey = {
                 name: userName,
                 photo: photo,
                 scores: scores
             }
+
+            var surveyValidationResult = {
+                    valid: false,
+                    msg: "default message"
+                }
+                // Fills in surveyValidationResult.
+            function validateSurvey() {
+
+                if (isNaN(newSurvey.name) || newSurvey.name === "") {
+                    surveyValidationResult.msg = "UserName is not specified.";
+                    return;
+                }
+                if (isNaN(newSurvey.photo) || newSurvey.photo === "") {
+                    surveyValidationResult.msg = "Photo is not specified.";
+                    return;
+                }
+
+                for (var i = 0; i < newSurvey.scores.length; i++) {
+                    if (isNaN(newSurvey.scores[i])) {
+                        var id = i + 1;
+                        surveyValidationResult.msg = "Question " + id.toString() + " has not been answered, please answer all questions."
+                        return;
+                    } else {
+                        console.log("Score value=" + newSurvey.scores[i]);
+                    }
+                }
+                surveyValidationResult.valid = true
+            }
+            validateSurvey();
+            console.log("ValidationResult=" + surveyValidationResult.valid)
+            if (surveyValidationResult.valid) {
+                $.post("/api/friends", newSurvey, function(data) {
+                    console.log(data);
+                    // show a modal with the name and the picture
+                    $("#friendName").text(data.name);
+                    $("#friendImage").attr("src", data.photo);
+                    $("#modalName").modal();
+                });
+            } else {
+                alert(surveyValidationResult.msg)
+            }
             console.log(newSurvey);
-            $.post("/api/friends", newSurvey, function(data) {
-                console.log(data);
-                // show a modal with the name and the picture
-                $("#friendName").text(data.name);
-                $("#friendImage").attr("src", data.photo);
-                $("#modalName").modal();
-            })
-        })
+
+
+        });
     </script>
 
 </body>
