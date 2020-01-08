@@ -22,10 +22,10 @@
         <form>
             <div class="form-group">
                 <h5><label for="exampleFormControlInput1">Name (Required)</label></h5>
-                <input type="text" class="form-control" id="name" placeholder="First and last name" required>
+                <input type="text" class="form-control" id="name" placeholder="First and last name" required />
             </div>
             <h5>Link to Photo Image (Required)</h5>
-            <input type="text" id="photo" class="form-control" required>
+            <input type="text" id="photo" class="form-control" required />
             <hr>
 
             <div class="input-field col s12">
@@ -191,11 +191,10 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <script>
         $("#submit").on("click", function() {
-
             event.preventDefault();
-
             var userName = $("#name").val();
             var photo = $("#photo").val();
             var scores = [];
@@ -208,36 +207,14 @@
                 photo: photo,
                 scores: scores
             }
-
             var surveyValidationResult = {
                     valid: false,
                     msg: "default msg"
                 }
                 // Fills in surveyValidationResult.
-            function validateSurvey() {
 
-                if (isNaN(newSurvey.name) || newSurvey.name === "") {
-                    surveyValidationResult.msg = "UserName is not specified.";
-                    return;
-                }
-                if (isNaN(newSurvey.photo) || newSurvey.photo === "") {
-                    surveyValidationResult.msg = "Photo is not specified.";
-                    return;
-                }
-
-                for (var i = 0; i < newSurvey.scores.length; i++) {
-                    if (isNaN(newSurvey.scores[i])) {
-                        var id = i + 1;
-                        surveyValidationResult.msg = "Question " + id.toString() + " has not been answered, please answer all questions."
-                        return;
-                    } else {
-                        console.log("Score value=" + newSurvey.scores[i]);
-                    }
-                }
-                surveyValidationResult.valid = true
-            }
             validateSurvey();
-            console.log("ValidationResult=" + surveyValidationResult.valid)
+            console.log("ValidationResult=" + surveyValidationResult.valid);
             if (surveyValidationResult.valid) {
                 $.post("/api/friends", newSurvey, function(data) {
                     console.log(data);
@@ -250,10 +227,33 @@
                 alert(surveyValidationResult.msg)
             }
             console.log(newSurvey);
-
-
         });
+
+
+        function validateSurvey() {
+            console.log(newSurvey);
+            if (newSurvey.name === "") {
+                surveyValidationResult.msg = "UserName is not specified.";
+                return;
+            }
+            if (newSurvey.photo === "") {
+                surveyValidationResult.msg = "Photo is not specified.";
+                return;
+            }
+            for (var i = 0; i < newSurvey.scores.length; i++) {
+                if (isNaN(newSurvey.scores[i])) {
+                    var id = i + 1;
+                    surveyValidationResult.msg = "Question " + id.toString() + " has not been answered, please answer all questions."
+                    return;
+                } else {
+                    console.log("Score value=" + newSurvey.scores[i]);
+                }
+            }
+
+            surveyValidationResult.valid = true
+        }
     </script>
+
 
 </body>
 ​
