@@ -212,7 +212,28 @@
                     msg: "default msg"
                 }
                 // Fills in surveyValidationResult.
+            function validateSurvey() {
+                console.log(newSurvey);
+                if (newSurvey.name === "") {
+                    surveyValidationResult.msg = "UserName is not specified.";
+                    return;
+                }
+                if (newSurvey.photo === "") {
+                    surveyValidationResult.msg = "Photo is not specified.";
+                    return;
+                }
+                for (var i = 0; i < newSurvey.scores.length; i++) {
+                    if (isNaN(newSurvey.scores[i])) {
+                        var id = i + 1;
+                        surveyValidationResult.msg = "Question " + id.toString() + " has not been answered, please answer all questions."
+                        return;
+                    } else {
+                        console.log("Score value=" + newSurvey.scores[i]);
+                    }
+                }
 
+                surveyValidationResult.valid = true
+            }
             validateSurvey();
             console.log("ValidationResult=" + surveyValidationResult.valid);
             if (surveyValidationResult.valid) {
@@ -228,30 +249,6 @@
             }
             console.log(newSurvey);
         });
-
-
-        function validateSurvey() {
-            console.log(newSurvey);
-            if (newSurvey.name === "") {
-                surveyValidationResult.msg = "UserName is not specified.";
-                return;
-            }
-            if (newSurvey.photo === "") {
-                surveyValidationResult.msg = "Photo is not specified.";
-                return;
-            }
-            for (var i = 0; i < newSurvey.scores.length; i++) {
-                if (isNaN(newSurvey.scores[i])) {
-                    var id = i + 1;
-                    surveyValidationResult.msg = "Question " + id.toString() + " has not been answered, please answer all questions."
-                    return;
-                } else {
-                    console.log("Score value=" + newSurvey.scores[i]);
-                }
-            }
-
-            surveyValidationResult.valid = true
-        }
     </script>
 
 
